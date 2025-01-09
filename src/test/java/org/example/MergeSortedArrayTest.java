@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("checkstyle:MissingJavadocType")
 public class MergeSortedArrayTest {
 
     @Test
