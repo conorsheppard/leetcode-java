@@ -5,12 +5,8 @@ import java.util.*;
 public class MinTimeToVisitAllPoints {
     public static int minTimeToVisitAllPoints(int[][] points) {
         int seconds = 0;
-        var curPoints = points[0];
-        for (int i = 1; i < points.length; i++) {
-            var dist = Math.max(Math.abs(curPoints[0] - points[i][0]), Math.abs(curPoints[1] - points[i][1]));
-            seconds = seconds + dist;
-            curPoints = points[i];
-        }
+        for (int i = 1; i < points.length; i++)
+            seconds += Math.max(Math.abs(points[i-1][0] - points[i][0]), Math.abs(points[i-1][1] - points[i][1]));
         return seconds;
     }
 
@@ -25,7 +21,7 @@ public class MinTimeToVisitAllPoints {
         for (int i = 1; i < points.length; i++) {
             var dist = Math.max(Math.abs(Math.subtractExact(curPoints.get(0), points[i][0])),
                     Math.abs(Math.subtractExact(curPoints.get(1), points[i][1])));
-            seconds = seconds + dist;
+            seconds += dist;
             curPoints = pointsStack.pop();
         }
 
