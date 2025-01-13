@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class MinTimeToVisitAllPoints {
     public static int minTimeToVisitAllPoints(int[][] points) {
@@ -8,6 +9,13 @@ public class MinTimeToVisitAllPoints {
         for (int i = 1; i < points.length; i++)
             seconds += Math.max(Math.abs(points[i-1][0] - points[i][0]), Math.abs(points[i-1][1] - points[i][1]));
         return seconds;
+    }
+
+    public static int minTimeWithStream(int[][] points) {
+        return IntStream
+                .range(1, points.length)
+                .map(i -> Math.max(Math.abs(points[i-1][0] - points[i][0]), Math.abs(points[i-1][1] - points[i][1])))
+                .sum();
     }
 
     public static int minTimeToVisitAllPointsStack(int[][] points) {
