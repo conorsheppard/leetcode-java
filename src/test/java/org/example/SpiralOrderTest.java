@@ -66,4 +66,35 @@ public class SpiralOrderTest {
 
         assertEquals(List.of(2, 5, 4, -1, 0, 8), spiralOrder(matrix));
     }
+
+    @Test
+    public void testCase7() {
+        var matrix = new int[][]{
+                {2, 5, 6, 3, 1, 6, 0},
+                {8, 4, 5, 6, 3, 1, 6},
+                {0, 5, 6, 3, 1, 6, -1},
+                {8, 4, 5, 6, 3, 1, 6},
+                {8, 4, 5, 6, 3, 1, 6},
+                {8, 4, 5, 6, 3, 1, 6},
+                {8, 4, 5, 6, 3, 1, 6}
+        };
+
+        assertEquals(List.of(2, 5, 6, 3, 1, 6, 0, 6, -1, 6, 6, 6, 6, 1, 3, 6, 5, 4, 8, 8, 8, 8, 0,
+                8, 4, 5, 6, 3, 1, 6, 1, 1, 1, 3, 6, 5, 4, 4, 4,
+                5, 6, 3, 1, 3, 3, 6, 5,
+                5, 6), spiralOrder(matrix));
+    }
+
+    @Test
+    public void testCase8() {
+        var matrix = new int[][]{
+                {0, 0, 0, 0, 0},
+                {3, 4, 4, 4, 1},
+                {3, 7, 8, 5, 1},
+                {3, 6, 6, 5, 1},
+                {2, 2, 2, 2, 1}
+        };
+
+        assertEquals(List.of(0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8), spiralOrder(matrix));
+    }
 }
