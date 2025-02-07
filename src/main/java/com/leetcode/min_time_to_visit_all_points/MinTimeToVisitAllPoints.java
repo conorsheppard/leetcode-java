@@ -1,4 +1,4 @@
-package org.example;
+package com.leetcode.min_time_to_visit_all_points;
 
 import java.util.*;
 import java.util.stream.IntStream;

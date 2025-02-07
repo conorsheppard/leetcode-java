@@ -1,4 +1,4 @@
-package org.example;
+package com.leetcode.merge_sorted_array;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

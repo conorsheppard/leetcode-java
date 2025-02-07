@@ -1,4 +1,4 @@
-package org.example;
+package com.leetcode.contains_duplicates;
 
 import org.junit.jupiter.api.Test;
 

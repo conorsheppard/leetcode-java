@@ -1,4 +1,4 @@
-package org.example;
+package com.leetcode.two_sum;
 
 import java.util.HashMap;
 import java.util.Objects;

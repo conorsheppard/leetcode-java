@@ -1,10 +1,10 @@
-package org.example;
+package com.leetcode.spiral_order;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.example.SpiralOrder.spiralOrder;
+import static com.leetcode.spiral_order.SpiralOrder.spiralOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SpiralOrderTest {

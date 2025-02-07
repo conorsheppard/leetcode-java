@@ -1,4 +1,4 @@
-package org.example;
+package com.leetcode.final_value_after_operations;
 
 import java.util.Arrays;
 

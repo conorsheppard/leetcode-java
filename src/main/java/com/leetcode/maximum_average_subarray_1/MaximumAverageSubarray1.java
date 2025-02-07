@@ -1,4 +1,4 @@
-package org.example;
+package com.leetcode.maximum_average_subarray_1;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

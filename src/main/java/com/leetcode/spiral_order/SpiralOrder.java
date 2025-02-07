@@ -1,4 +1,4 @@
-package org.example;
+package com.leetcode.spiral_order;
 
 import java.util.*;
 import java.util.stream.IntStream;

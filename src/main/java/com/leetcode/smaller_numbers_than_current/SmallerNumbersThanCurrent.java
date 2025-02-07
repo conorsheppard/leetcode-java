@@ -1,4 +1,4 @@
-package org.example;
+package com.leetcode.smaller_numbers_than_current;
 
 public class SmallerNumbersThanCurrent {
     public static int[] smallerNumbersThanCurrent(int[] nums) {

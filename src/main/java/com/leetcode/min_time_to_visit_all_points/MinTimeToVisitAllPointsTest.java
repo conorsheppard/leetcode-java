@@ -1,8 +1,8 @@
-package org.example;
+package com.leetcode.min_time_to_visit_all_points;
 
 import org.junit.jupiter.api.Test;
 
-import static org.example.MinTimeToVisitAllPoints.minTimeToVisitAllPoints;
+import static com.leetcode.min_time_to_visit_all_points.MinTimeToVisitAllPoints.minTimeToVisitAllPoints;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MinTimeToVisitAllPointsTest {
@@ -15,7 +15,7 @@ public class MinTimeToVisitAllPointsTest {
                 {-1, 0}
         };
 
-        assertEquals(minTimeToVisitAllPoints(points), 7);
+        assertEquals(7, minTimeToVisitAllPoints(points));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class MinTimeToVisitAllPointsTest {
                 {-2, 2}
         };
 
-        assertEquals(minTimeToVisitAllPoints(points), 5);
+        assertEquals(5, minTimeToVisitAllPoints(points));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class MinTimeToVisitAllPointsTest {
                 {149, -452}
         };
 
-        assertEquals(minTimeToVisitAllPoints(points), 49088);
+        assertEquals(49088, minTimeToVisitAllPoints(points));
     }
 
     @Test
@@ -98,6 +98,6 @@ public class MinTimeToVisitAllPointsTest {
                 {4, 4},
                 {8, 8}
         };
-        assertEquals(minTimeToVisitAllPoints(points), 5);
+        assertEquals(5, minTimeToVisitAllPoints(points));
     }
 }

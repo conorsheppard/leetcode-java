@@ -1,4 +1,4 @@
-package org.example;
+package com.leetcode.find_disappeared_numbers;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.example.FindDisappearedNumbers.findDisappearedNumbers;
+import static com.leetcode.find_disappeared_numbers.FindDisappearedNumbers.findDisappearedNumbers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FindDisappearedNumbersTest {
@@ -17,13 +17,13 @@ public class FindDisappearedNumbersTest {
     @Test
     public void testCase1() {
         int[] nums = {4, 3, 2, 7, 8, 2, 3, 1};
-        assertEquals(findDisappearedNumbers(nums), Arrays.asList(5, 6));
+        assertEquals(List.of(5, 6), findDisappearedNumbers(nums));
     }
 
     @Test
     public void testCase2() {
         int[] nums = {1, 1};
-        assertEquals(findDisappearedNumbers(nums), List.of(2));
+        assertEquals(List.of(2), findDisappearedNumbers(nums));
     }
 
     @Test

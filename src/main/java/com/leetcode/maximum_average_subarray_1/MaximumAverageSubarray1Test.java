@@ -1,8 +1,8 @@
-package org.example;
+package com.leetcode.maximum_average_subarray_1;
 
 import org.junit.jupiter.api.Test;
 
-import static org.example.MaximumAverageSubarray1.findMaxAverage;
+import static com.leetcode.maximum_average_subarray_1.MaximumAverageSubarray1.findMaxAverage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MaximumAverageSubarray1Test {

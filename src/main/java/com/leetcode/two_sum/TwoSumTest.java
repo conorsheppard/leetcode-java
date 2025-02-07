@@ -1,10 +1,11 @@
-package org.example;
+package com.leetcode.two_sum;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.example.TwoSum.twoSum;
+import static com.leetcode.two_sum.TwoSum.twoSum;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TwoSumTest {
@@ -14,7 +15,7 @@ public class TwoSumTest {
         int[] nums = {2, 7, 11, 15};
         var target = 9;
 
-        assertEquals(Arrays.stream(twoSum(nums, target)).boxed().toList(), Arrays.asList(0, 1));
+        assertArrayEquals(new int[]{0, 1}, twoSum(nums, target));
     }
 
     @Test
@@ -22,7 +23,7 @@ public class TwoSumTest {
         int[] nums = {3, 2, 4};
         var target = 6;
 
-        assertEquals(Arrays.stream(twoSum(nums, target)).boxed().toList(), Arrays.asList(1, 2));
+        assertArrayEquals(new int[]{1, 2}, twoSum(nums, target));
     }
 
     @Test
@@ -30,6 +31,6 @@ public class TwoSumTest {
         int[] nums = {3, 3};
         var target = 6;
 
-        assertEquals(Arrays.stream(twoSum(nums, target)).boxed().toList(), Arrays.asList(0, 1));
+        assertArrayEquals(new int[]{0, 1}, twoSum(nums, target));
     }
 }
