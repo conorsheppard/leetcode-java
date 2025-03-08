@@ -1,10 +1,10 @@
 package com.leetcode.find_disappeared_numbers;
 
+import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
@@ -26,17 +26,17 @@ public class FindDisappearedNumbersTest {
         assertEquals(List.of(2), findDisappearedNumbers(nums));
     }
 
+    @SneakyThrows
     @Test
     public void testCase3() {
-        try (FileInputStream inputStream = new FileInputStream("src/test/resources/numsTestCase3.txt")) {
+        String testFilePath = "src/main/java/com/leetcode/find_disappeared_numbers/resources/numsTestCase3.txt";
+        try (FileInputStream inputStream = new FileInputStream(testFilePath)) {
             String str = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
             int[] nums = Arrays.stream(str.split(",")).mapToInt(Integer::parseInt).toArray();
-            FileInputStream resultStream = new FileInputStream("src/test/resources/resultTestCase3.txt");
+            FileInputStream resultStream = new FileInputStream(testFilePath);
             str = IOUtils.toString(resultStream, StandardCharsets.UTF_8);
             List<Integer> result = Arrays.stream(str.split(", ")).mapToInt(Integer::parseInt).boxed().toList();
             assertEquals(findDisappearedNumbers(nums), result);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }
