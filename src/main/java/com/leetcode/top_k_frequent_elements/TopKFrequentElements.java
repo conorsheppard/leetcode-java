@@ -8,12 +8,13 @@ public class TopKFrequentElements {
         if (nums.length == 0 || k == 0) return new int[]{};
 
         var map = new HashMap<Integer, Integer>();
-        var heap = new PriorityQueue<>(Comparator.comparing(Node::freq).reversed());
+        var heap = new PriorityQueue<>(k, Comparator.comparing(Entry<Integer, Integer>::getValue).reversed());
         var res = new int[k];
 
         for (int num : nums) map.put(num, map.getOrDefault(num, 0) + 1);
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) heap.add(new Node(entry.getKey(), entry.getValue()));
-        for (int i = 0; i < k; i++) res[i] = heap.poll().num;
+        heap.addAll(map.entrySet());
+
+        for (int i = 0; i < k; i++) res[i] = heap.poll().getKey();
 
         return res;
     }
