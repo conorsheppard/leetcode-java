@@ -12,7 +12,7 @@ class BankTest {
     @BeforeEach
     void setUp() {
         // Initial balances: account 1 -> 100, account 2 -> 200, account 3 -> 300
-        bank = new Bank(new long[]{100, 200, 300});
+        bank = new Bank(new long[]{100, 200, 300, Long.MAX_VALUE});
     }
 
     @Test
@@ -42,7 +42,8 @@ class BankTest {
 
     @Test
     void testValidTransfer() {
-        assertTrue(bank.transfer(1, 2, 50)); // account 1: 50, account 2: 250
+        var res = bank.transfer(1, 2, 50);
+        assertTrue(res); // account 1: 50, account 2: 250
     }
 
     @Test
