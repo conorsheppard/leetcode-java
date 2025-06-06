@@ -12,7 +12,7 @@ class BankTest {
     @BeforeEach
     void setUp() {
         // Initial balances: account 1 -> 100, account 2 -> 200, account 3 -> 300
-        bank = new Bank(new long[]{100, 200, 300, Long.MAX_VALUE});
+        bank = new Bank(new long[]{100, 200, 300});
     }
 
     @Test
