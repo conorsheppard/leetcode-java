@@ -1,4 +1,4 @@
-package com.leetcode.find_disappeared_numbers;
+package com.leetcode.find_disappeared_numbers_448;
 
 import java.util.ArrayList;
 import java.util.Arrays;
