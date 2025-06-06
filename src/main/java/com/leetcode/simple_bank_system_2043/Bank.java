@@ -10,7 +10,7 @@ class Bank {
     }
 
     public boolean transfer(int account1, int account2, long money) {
-        if (allValidAccounts(account1, account2)) return false;
+        if (!allValidAccounts(account1, account2)) return false;
         // todo: wrap these in a transaction
         if (!hasSufficientFunds(account1, money)) return false;
         accounts[account1 - 1] = accounts[account1 - 1] - money;
