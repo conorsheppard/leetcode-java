@@ -3,7 +3,7 @@ SHELL := /bin/bash
 default: test
 
 test:
-	./shell/test.sh
+	./shell/test
 
 test-coverage:
 	mvn clean test jacoco:report verify

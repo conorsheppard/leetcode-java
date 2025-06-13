@@ -10,11 +10,14 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TicTacToeWinnerTest {
+
+    private final TicTacToeWinner game = new TicTacToeWinner();
+
     @ParameterizedTest(name = "Game #{index}")
     @MethodSource("tictactoeProvider")
     @DisplayName("Test Tic Tac Toe Winner")
     void testTicTacToeWinner(int[][] moves, String expected) {
-//        assertEquals(expected, tictactoe(moves));
+        assertEquals(expected, game.tictactoe(moves));
     }
 
     static Stream<Arguments> tictactoeProvider() {
@@ -23,6 +26,11 @@ public class TicTacToeWinnerTest {
                 Arguments.of(new int[][]{
                         {0, 0}, {1, 1}, {0, 1}, {2, 1}, {0, 2}
                 }, "A"),
+
+                // B wins
+                Arguments.of(new int[][]{
+                        {0, 0}, {1, 1}, {1, 0}, {2, 1}, {0, 2}, {0, 1}
+                }, "B"),
 
                 // B wins
                 Arguments.of(new int[][]{
