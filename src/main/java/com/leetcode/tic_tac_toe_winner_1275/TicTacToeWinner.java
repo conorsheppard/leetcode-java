@@ -1,8 +1,7 @@
 package com.leetcode.tic_tac_toe_winner_1275;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -12,43 +11,60 @@ public class TicTacToeWinner {
             new char[]{' ', ' ', ' '},
             new char[]{' ', ' ', ' '}
     };
+    private static final int SIZE = 3; // dimensions of the matrix (i.e. 3 x 3)
     private int[][] moves;
-    private static final String DIAG_1 = "Diag1";
-    private static final String DIAG_2 = "Diag2";
-
-
-    private final Map<String, Integer> movesMap = new HashMap<>();
 
     public String tictactoe(int[][] moves) {
         this.moves = moves;
         for (int i = 0; i < moves.length; i++) {
-            var curPlayer = i % 2 == 0 ? "A" : "B";
-            if (incrementAndCheckWin(moves[i], curPlayer)) return curPlayer;
+            var curPlayer = i % 2 == 0 ? 'A' : 'B';
+            gameBoard[moves[i][0]][moves[i][1]] = curPlayer;
+            if (checkHorizontalWin(curPlayer) || checkVerticalWin(curPlayer) || checkDiagonalWin(curPlayer))
+                return curPlayer + "";
         }
 
         return moves.length == 9 ? "Draw" : "Pending";
     }
 
-    private boolean incrementAndCheckWin(int[] move, String player) {
-        movesMap.put(player + "Row" + move[0], movesMap.getOrDefault(player + "Row" + move[0], 0) + 1);
-        movesMap.put(player + "Col" + move[1], movesMap.getOrDefault(player + "Col" + move[1], 0) + 1);
+    private boolean checkVerticalWin(char curPlayer) {
+        return IntStream.range(0, SIZE)
+                .anyMatch(col -> IntStream.range(0, SIZE).allMatch(row -> gameBoard[row][col] == curPlayer));
+    }
 
-        if ((move[0] == 0 && move[1] == 0) || (move[0] == 1 && move[1] == 1) || (move[0] == 2 && move[1] == 2))
-            movesMap.put(player + DIAG_1, movesMap.getOrDefault(player + DIAG_1, 0) + 1);
+    private boolean checkHorizontalWin(char curPlayer) {
+        return IntStream.range(0, SIZE)
+                .anyMatch(row -> IntStream.range(0, SIZE).allMatch(col -> gameBoard[row][col] == curPlayer));
+    }
 
-        if ((move[0] == 0 && move[1] == 2) || (move[0] == 1 && move[1] == 1) || (move[0] == 2 && move[1] == 0))
-            movesMap.put(player + DIAG_2, movesMap.getOrDefault(player + DIAG_2, 0) + 1);
-
-        return movesMap.getOrDefault(player + "Row" + move[0], 0) == 3
-                || movesMap.getOrDefault(player + "Col" + move[1], 0) == 3
-                || movesMap.getOrDefault(player + DIAG_1, 0) == 3
-                || movesMap.getOrDefault(player + DIAG_2, 0) == 3;
+    private boolean checkDiagonalWin(char curPlayer) {
+        return IntStream.range(0, SIZE)
+                .allMatch(i -> gameBoard[i][i] == curPlayer) ||
+                IntStream.range(0, SIZE).allMatch(i -> gameBoard[i][SIZE - 1 - i] == curPlayer);
     }
 
     private void fillGameBoard(int[][] moves) {
         IntStream
                 .range(0, moves.length)
                 .forEach(i -> gameBoard[moves[i][0]][moves[i][1]] = i % 2 == 0 ? 'A' : 'B');
+    }
+
+    private void fillGameBoardUpTo(int[][] moves, int limit) {
+        IntStream
+                .range(0, limit)
+                .forEach(i -> gameBoard[moves[i][0]][moves[i][1]] = i % 2 == 0 ? 'A' : 'B');
+    }
+
+    private List<String> fillGameBoardAtEachMove(int[][] moves) {
+        return IntStream
+                .range(0, moves.length)
+                .mapToObj(i -> {
+                    gameBoard[moves[i][0]][moves[i][1]] = i % 2 == 0 ? 'A' : 'B';
+                    return Stream.of(gameBoard)
+                            .map(Arrays::toString)
+                            .toList();
+                })
+                .map(list -> list.stream().reduce("", (x, y) -> x + y + "\n"))
+                .toList();
     }
 
     private void printGameBoard() {

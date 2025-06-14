@@ -37,6 +37,11 @@ public class TicTacToeWinnerTest {
                         {0, 0}, {1, 1}, {0, 1}, {0, 2}, {2, 2}, {2, 0}
                 }, "B"),
 
+                // A wins vertical
+                Arguments.of(new int[][]{
+                        {0, 0}, {1, 1}, {0, 1}, {0, 2}, {2, 2}, {2, 0}
+                }, "B"),
+
                 // Draw
                 Arguments.of(new int[][]{
                         {0, 0}, {1, 1}, {2, 0},
