@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class TicTacToeWinner {
+public class TicTacToeGame {
     private char[][] gameBoard = new char[][]{
             new char[]{' ', ' ', ' '},
             new char[]{' ', ' ', ' '},
@@ -13,14 +13,16 @@ public class TicTacToeWinner {
     };
     private static final int SIZE = 3; // dimensions of the matrix (i.e. 3 x 3)
     private int[][] moves;
+    private static final char PLAYER_A = 'X';
+    private static final char PLAYER_B = 'O';
 
     public String tictactoe(int[][] moves) {
         this.moves = moves;
         for (int i = 0; i < moves.length; i++) {
-            var curPlayer = i % 2 == 0 ? 'A' : 'B';
+            var curPlayer = i % 2 == 0 ? PLAYER_A : PLAYER_B;
             gameBoard[moves[i][0]][moves[i][1]] = curPlayer;
             if (checkHorizontalWin(curPlayer) || checkVerticalWin(curPlayer) || checkDiagonalWin(curPlayer))
-                return curPlayer + "";
+                return curPlayer == PLAYER_A ? "A" : "B";
         }
 
         return moves.length == 9 ? "Draw" : "Pending";
@@ -45,20 +47,20 @@ public class TicTacToeWinner {
     private void fillGameBoard(int[][] moves) {
         IntStream
                 .range(0, moves.length)
-                .forEach(i -> gameBoard[moves[i][0]][moves[i][1]] = i % 2 == 0 ? 'A' : 'B');
+                .forEach(i -> gameBoard[moves[i][0]][moves[i][1]] = i % 2 == 0 ? PLAYER_A : PLAYER_B);
     }
 
     private void fillGameBoardUpTo(int[][] moves, int limit) {
         IntStream
                 .range(0, limit)
-                .forEach(i -> gameBoard[moves[i][0]][moves[i][1]] = i % 2 == 0 ? 'A' : 'B');
+                .forEach(i -> gameBoard[moves[i][0]][moves[i][1]] = i % 2 == 0 ? PLAYER_A : PLAYER_B);
     }
 
     private List<String> fillGameBoardAtEachMove(int[][] moves) {
         return IntStream
                 .range(0, moves.length)
                 .mapToObj(i -> {
-                    gameBoard[moves[i][0]][moves[i][1]] = i % 2 == 0 ? 'A' : 'B';
+                    gameBoard[moves[i][0]][moves[i][1]] = i % 2 == 0 ? PLAYER_A : PLAYER_B;
                     return Stream.of(gameBoard)
                             .map(Arrays::toString)
                             .toList();

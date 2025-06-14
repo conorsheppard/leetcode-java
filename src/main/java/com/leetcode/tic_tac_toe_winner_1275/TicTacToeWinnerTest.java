@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TicTacToeWinnerTest {
 
-    private final TicTacToeWinner game = new TicTacToeWinner();
+    private final TicTacToeGame game = new TicTacToeGame();
 
     @ParameterizedTest(name = "Game #{index}")
     @MethodSource("tictactoeProvider")
@@ -22,25 +22,25 @@ public class TicTacToeWinnerTest {
 
     static Stream<Arguments> tictactoeProvider() {
         return Stream.of(
-                // A wins
+                // A wins horizontally row 1
                 Arguments.of(new int[][]{
                         {0, 0}, {1, 1}, {0, 1}, {2, 1}, {0, 2}
                 }, "A"),
 
-                // B wins
+                // B wins vertically column 2
                 Arguments.of(new int[][]{
                         {0, 0}, {1, 1}, {1, 0}, {2, 1}, {0, 2}, {0, 1}
                 }, "B"),
 
-                // B wins
+                // B wins diagonally top right to bottom left
                 Arguments.of(new int[][]{
                         {0, 0}, {1, 1}, {0, 1}, {0, 2}, {2, 2}, {2, 0}
                 }, "B"),
 
-                // A wins vertical
+                // A wins diagonally top left to bottom right
                 Arguments.of(new int[][]{
-                        {0, 0}, {1, 1}, {0, 1}, {0, 2}, {2, 2}, {2, 0}
-                }, "B"),
+                        {0, 0}, {1, 0}, {1, 1}, {0, 2}, {2, 2}
+                }, "A"),
 
                 // Draw
                 Arguments.of(new int[][]{
