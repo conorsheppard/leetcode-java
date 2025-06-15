@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import static com.leetcode.mars_rover.MarsRover.Direction.*;
 
-@Slf4j
 public class MarsRover {
 
     public static void main(String[] args) {
