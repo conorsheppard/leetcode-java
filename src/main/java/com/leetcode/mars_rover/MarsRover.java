@@ -1,81 +1,72 @@
 package com.leetcode.mars_rover;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
-import static com.leetcode.mars_rover.MarsRover.Direction.*;
+import static com.leetcode.mars_rover.Direction.*;
 
+@Data
 public class MarsRover {
+    // Todo: How to extend this if you could have a large rover that takes up 4 squares on the grid
+    private int[] position;
+    private Direction direction;
+    private final Plateau plateau;
 
-    public static void main(String[] args) {
-        new MarsRover().execute();
+    public MarsRover(int[] position, Direction direction, Plateau plateau) {
+        this.position = convertArrayIndicesToMatrixCoordinates(position);
+        this.direction = direction;
+        this.plateau = plateau;
     }
 
-    void execute() {
-        // L: turn left, R: turn right, M: move forward
-//        String commands = "LMLMLMLMM";
-        String commands = "MMRMRM";
-
-        var rover = new Rover(new int[]{0, 0}, N);
-        var plateau = new Plateau(5, 5);
-
-        System.out.println("Rover: " + rover);
-
+    public void executeCommands(String commands) {
         for (char c : commands.toCharArray()) {
             switch (c) {
-                case 'L' -> rover.rotateLeft();
-                case 'R' -> rover.rotateRight();
-                case 'M' -> rover.move(plateau);
-            }
-        }
-
-        System.out.println("Rover: " + rover);
-    }
-
-    @Data
-    @AllArgsConstructor
-    class Rover {
-        // Todo: How to extend this if you could have a large rover that takes up 4 squares on the grid
-        int[] position;
-        Direction direction;
-
-        // Todo: How to extend this if the rover could face NW, SW, SE, NE
-        void move(Plateau p) {
-            switch (direction) {
-                case N -> position[0] = position[0] + (position[0] == 0 ? 0 : -1);
-                case S -> position[0] = position[0] + (position[0] == p.ySize ? 0 : 1);
-                case E -> position[1] = position[1] + (position[1] == p.xSize ? 0 : 1);
-                case W -> position[1] = position[1] + (position[1] == 0 ? 0 : -1);
-            }
-        }
-
-        void rotateLeft() {
-            switch (direction) {
-                case N -> direction = W;
-                case S -> direction = E;
-                case E -> direction = N;
-                case W -> direction = S;
-            }
-        }
-
-        void rotateRight() {
-            switch (direction) {
-                case N -> direction = E;
-                case S -> direction = W;
-                case E -> direction = S;
-                case W -> direction = N;
+                case 'L' -> rotateLeft();
+                case 'R' -> rotateRight();
+                case 'M' -> move(plateau);
             }
         }
     }
 
-    @AllArgsConstructor
-    class Plateau {
-        int xSize; // length of the x axis, rover.position[1]
-        int ySize; // length of the y axis, rover.position[0]
+    // Todo: How to extend this if the rover could face NW, SW, SE, NE
+    private void move(Plateau p) {
+        int nextX = position[1];
+        int nextY = position[0];
+        switch (direction) {
+            case N -> nextY--;
+            case S -> nextY++;
+            case E -> nextX++;
+            case W -> nextX--;
+        }
+        if (isInBounds(p.xSize(), p.ySize(), nextY, nextX)) {
+            position[0] = nextY;
+            position[1] = nextX;
+        }
     }
 
-    enum Direction {
-        N, S, E, W;
+    void rotateLeft() {
+        switch (direction) {
+            case N -> direction = W;
+            case S -> direction = E;
+            case E -> direction = N;
+            case W -> direction = S;
+        }
+    }
+
+    void rotateRight() {
+        switch (direction) {
+            case N -> direction = E;
+            case S -> direction = W;
+            case E -> direction = S;
+            case W -> direction = N;
+        }
+    }
+
+    private int[] convertArrayIndicesToMatrixCoordinates(int[] coordinates) {
+        // position[length - 1 - secondDigit][firstDigit]
+        return coordinates;
+    }
+
+    private boolean isInBounds(int width, int length, int row, int col) {
+        return row >= 0 && row < length && col >= 0 && col < width;
     }
 }
