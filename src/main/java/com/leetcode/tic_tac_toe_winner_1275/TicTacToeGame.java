@@ -21,21 +21,24 @@ public class TicTacToeGame {
         for (int i = 0; i < moves.length; i++) {
             var curPlayer = i % 2 == 0 ? PLAYER_A : PLAYER_B;
             gameBoard[moves[i][0]][moves[i][1]] = curPlayer;
-            if (checkHorizontalWin(curPlayer) || checkVerticalWin(curPlayer) || checkDiagonalWin(curPlayer))
-                return curPlayer == PLAYER_A ? "A" : "B";
+            if (hasWon(curPlayer)) return curPlayer == PLAYER_A ? "A" : "B";
         }
 
         return moves.length == 9 ? "Draw" : "Pending";
     }
 
-    private boolean checkVerticalWin(char curPlayer) {
-        return IntStream.range(0, SIZE)
-                .anyMatch(col -> IntStream.range(0, SIZE).allMatch(row -> gameBoard[row][col] == curPlayer));
+    private boolean hasWon(char curPlayer) {
+        return checkHorizontalWin(curPlayer) || checkVerticalWin(curPlayer) || checkDiagonalWin(curPlayer);
     }
 
     private boolean checkHorizontalWin(char curPlayer) {
         return IntStream.range(0, SIZE)
                 .anyMatch(row -> IntStream.range(0, SIZE).allMatch(col -> gameBoard[row][col] == curPlayer));
+    }
+
+    private boolean checkVerticalWin(char curPlayer) {
+        return IntStream.range(0, SIZE)
+                .anyMatch(col -> IntStream.range(0, SIZE).allMatch(row -> gameBoard[row][col] == curPlayer));
     }
 
     private boolean checkDiagonalWin(char curPlayer) {
