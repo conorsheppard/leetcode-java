@@ -2,6 +2,8 @@ package com.leetcode.mars_rover;
 
 import lombok.Data;
 
+import java.util.Arrays;
+
 import static com.leetcode.mars_rover.Direction.*;
 
 @Data
@@ -12,7 +14,7 @@ public class MarsRover {
     private final Plateau plateau;
 
     public MarsRover(int[] position, Direction direction, Plateau plateau) {
-        this.position = convertArrayIndicesToMatrixCoordinates(position);
+        this.position = position;
         this.direction = direction;
         this.plateau = plateau;
     }
@@ -22,24 +24,24 @@ public class MarsRover {
             switch (c) {
                 case 'L' -> rotateLeft();
                 case 'R' -> rotateRight();
-                case 'M' -> move(plateau);
+                case 'M' -> move();
             }
         }
     }
 
     // Todo: How to extend this if the rover could face NW, SW, SE, NE
-    private void move(Plateau p) {
-        int nextX = position[1];
-        int nextY = position[0];
+    private void move() {
+        int nextX = position[0];
+        int nextY = position[1];
         switch (direction) {
-            case N -> nextY--;
-            case S -> nextY++;
+            case N -> nextY++;
+            case S -> nextY--;
             case E -> nextX++;
             case W -> nextX--;
         }
-        if (isInBounds(p.xSize(), p.ySize(), nextY, nextX)) {
-            position[0] = nextY;
-            position[1] = nextX;
+        if (plateau.isInBounds(nextX, nextY)) {
+            position[0] = nextX;
+            position[1] = nextY;
         }
     }
 
@@ -61,12 +63,20 @@ public class MarsRover {
         }
     }
 
-    private int[] convertArrayIndicesToMatrixCoordinates(int[] coordinates) {
-        // position[length - 1 - secondDigit][firstDigit]
-        return coordinates;
+    private void printRoverPosition() {
+        var plateauArray = new char[plateau.ySize() + 1][plateau.xSize() + 1];
+        plateauArray[this.position[1]][this.position[0]] = this.direction.toString().charAt(0);
+        printPlateau(plateauArray, 0);
+        System.out.println("-------------");
     }
 
-    private boolean isInBounds(int width, int length, int row, int col) {
-        return row >= 0 && row < length && col >= 0 && col < width;
+    private void printPlateau(char[][] plateau, int count) {
+        if (plateau.length == 0) {
+            System.out.println("[]");
+            return;
+        }
+        count++;
+        if (count != plateau.length) printPlateau(plateau, count);
+        System.out.println(Arrays.toString(plateau[count - 1]));
     }
 }
