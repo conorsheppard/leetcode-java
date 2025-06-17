@@ -28,7 +28,15 @@ public class GameOfLifeTest {
                         new int[][]{new int[]{0, 0, 0}, new int[]{1, 0, 1}, new int[]{0, 1, 1}, new int[]{0, 1, 0}}),
 
                 Arguments.of(new int[][]{new int[]{1, 1}, new int[]{1, 0}},
-                        new int[][]{new int[]{1, 1}, new int[]{1, 1}})
+                        new int[][]{new int[]{1, 1}, new int[]{1, 1}}),
+
+                Arguments.of(new int[][]{}, new int[][]{}),
+
+                Arguments.of(new int[][]{{}, {}}, new int[][]{{}, {}}),
+
+                Arguments.of(new int[][]{{1}}, new int[][]{{0}}),
+
+                Arguments.of(new int[][]{{0}}, new int[][]{{0}})
 
         );
     }

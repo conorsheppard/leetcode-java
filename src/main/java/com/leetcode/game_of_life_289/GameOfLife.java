@@ -5,13 +5,22 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class GameOfLife {
+    private static final int DEAD = 0;
+    private static final int ALIVE = 1;
+    private static final int[][] DIRECTIONS = {
+            {-1, 0}, {1, 0}, {0, -1}, {0, 1},
+            {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
+    };
+
     public void gameOfLife(int[][] board) {
-        final int[][] boardToQuery = arrayDeepCopy(board);
         if (board.length == 0) return;
+
+        final int[][] boardSnapshot = arrayDeepCopy(board);
         int width = board[0].length;
         int height = board.length;
+
         IntStream.range(0, height).forEach(row ->
-                IntStream.range(0, width).forEach(col -> applyRules(boardToQuery, board, row, col)));
+                IntStream.range(0, width).forEach(col -> applyRules(boardSnapshot, board, row, col)));
     }
 
     private static int[][] arrayDeepCopy(int[][] board) {
@@ -20,42 +29,20 @@ public class GameOfLife {
                 .toArray(int[][]::new);
     }
 
-    private void applyRules(int[][] boardToQuery, int[][] boardToUpdate, int row, int col) {
-        switch (boardToQuery[row][col]) {
-            case 0 -> applyRulesOnZero(boardToQuery, boardToUpdate, row, col);
-            case 1 -> applyRulesOnOne(boardToQuery, boardToUpdate, row, col);
-        }
+    private void applyRules(int[][] boardSnapshot, int[][] board, int row, int col) {
+        var numLiveNeighbours = getNumLiveNeighbours(boardSnapshot, row, col);
+        board[row][col] = switch (boardSnapshot[row][col]) {
+            case DEAD -> (numLiveNeighbours == 3) ? ALIVE : DEAD;
+            case ALIVE -> (numLiveNeighbours < 2 || numLiveNeighbours > 3) ? DEAD : ALIVE;
+            default -> throw new IllegalStateException("Unexpected value: " + boardSnapshot[row][col]);
+        };
     }
 
-    private void applyRulesOnZero(int[][] boardToQuery, int[][] boardToUpdate, int row, int col) {
-        var numLiveNeighbours = getNumLiveNeighbours(boardToQuery, row, col);
-        if (numLiveNeighbours == 3) boardToUpdate[row][col] = 1;
-    }
-
-    private void applyRulesOnOne(int[][] boardToQuery, int[][] boardToUpdate, int row, int col) {
-        var numLiveNeighbours = getNumLiveNeighbours(boardToQuery, row, col);
-        if (numLiveNeighbours < 2 || numLiveNeighbours > 3) boardToUpdate[row][col] = 0;
-    }
-
-    private int getNumLiveNeighbours(int[][] boardToQuery, int row, int col) {
-        var numLiveNeighbours = 0;
-        if (isInBounds(boardToQuery, row - 1, col) && boardToQuery[row - 1][col] == 1)
-            numLiveNeighbours++; // check above
-        if (isInBounds(boardToQuery, row + 1, col) && boardToQuery[row + 1][col] == 1)
-            numLiveNeighbours++; // check below
-        if (isInBounds(boardToQuery, row, col - 1) && boardToQuery[row][col - 1] == 1)
-            numLiveNeighbours++; // check left
-        if (isInBounds(boardToQuery, row, col + 1) && boardToQuery[row][col + 1] == 1)
-            numLiveNeighbours++; // check right
-        if (isInBounds(boardToQuery, row + 1, col - 1) && boardToQuery[row + 1][col - 1] == 1)
-            numLiveNeighbours++; // check bottom left
-        if (isInBounds(boardToQuery, row + 1, col + 1) && boardToQuery[row + 1][col + 1] == 1)
-            numLiveNeighbours++; // check bottom right
-        if (isInBounds(boardToQuery, row - 1, col - 1) && boardToQuery[row - 1][col - 1] == 1)
-            numLiveNeighbours++; // check top left
-        if (isInBounds(boardToQuery, row - 1, col + 1) && boardToQuery[row - 1][col + 1] == 1)
-            numLiveNeighbours++; // check top left
-        return numLiveNeighbours;
+    private int getNumLiveNeighbours(int[][] board, int row, int col) {
+        return Stream.of(DIRECTIONS).mapToInt(dir -> {
+            int newRow = row + dir[0], newCol = col + dir[1];
+            return isInBounds(board, newRow, newCol) && board[newRow][newCol] == ALIVE ? 1 : 0;
+        }).sum();
     }
 
     private boolean isInBounds(int[][] array, int row, int col) {
