@@ -2,7 +2,10 @@ SHELL := /bin/bash
 
 default: test
 
-test:
+clean:
+	mvn clean
+
+test: clean
 	./shell/test
 
 test-coverage:
@@ -17,4 +20,4 @@ coverage-badge-gen:
 test-suite: test-coverage check-coverage coverage-badge-gen
 
 .SILENT:
-.PHONY: default test test-coverage check-coverage coverage-badge-gen test-suite
+.PHONY: default clean test test-coverage check-coverage coverage-badge-gen test-suite
