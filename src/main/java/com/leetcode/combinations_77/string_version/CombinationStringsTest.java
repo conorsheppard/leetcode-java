@@ -2,12 +2,10 @@ package com.leetcode.combinations_77.string_version;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leetcode.combinations_77.Combinations;
 import lombok.SneakyThrows;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +23,6 @@ public class CombinationStringsTest {
     })
     void testCombinations(int n, int k, String expectedStr) {
         List<String> expected = new ObjectMapper().readValue(expectedStr, new TypeReference<>() {});
-        assertEquals(expected, new Combinations().combine(n, k));
+        assertEquals(expected, new CombinationStrings().combine(n, k));
     }
 }
