@@ -28,15 +28,19 @@ public class FindDisappearedNumbersTest {
 
     @SneakyThrows
     @Test
-    public void testCase3() {
+    public void testLargeInputFromFile() {
         String testFilePath = "src/main/java/com/leetcode/find_disappeared_numbers_448/assets/numsTestCase3.txt";
         String resultFilePath = "src/main/java/com/leetcode/find_disappeared_numbers_448/assets/resultTestCase3.txt";
-        FileInputStream inputStream = new FileInputStream(testFilePath);
-        String strIn = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
-        int[] nums = Arrays.stream(strIn.split(",")).mapToInt(Integer::parseInt).toArray();
-        FileInputStream resultStream = new FileInputStream(resultFilePath);
-        String strRes = IOUtils.toString(resultStream, StandardCharsets.UTF_8);
-        List<Integer> result = Arrays.stream(strRes.split(",")).mapToInt(Integer::parseInt).boxed().toList();
-        assertEquals(findDisappearedNumbers(nums), result);
+        try (
+            FileInputStream inputStream = new FileInputStream(testFilePath);
+            FileInputStream resultStream = new FileInputStream(resultFilePath)
+        ) {
+            String strIn = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            int[] nums = Arrays.stream(strIn.split(",")).mapToInt(Integer::parseInt).toArray();
+            String strRes = IOUtils.toString(resultStream, StandardCharsets.UTF_8);
+            List<Integer> expected = Arrays.stream(strRes.split(",")).mapToInt(Integer::parseInt).boxed().toList();
+            List<Integer> actual = FindDisappearedNumbers.findDisappearedNumbers(nums);
+            assertEquals(expected, actual);
+        }
     }
 }
