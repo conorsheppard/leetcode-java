@@ -8,6 +8,12 @@ clean:
 test: clean
 	./shell/test
 
+checkstyle:
+	mvn checkstyle:check
+
+verify:
+	mvn verify
+
 test-coverage:
 	mvn clean test jacoco:report verify
 

@@ -16,8 +16,10 @@ jobs:
           java-version: '24'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+
+        # verify runs Checkstyle, tests and coverage checks
+      - name: Build, Test, and Jacoco
+        run: mvn verify
 
       - name: Generate JaCoCo Badge
         uses: cicirello/jacoco-badge-generator@v2

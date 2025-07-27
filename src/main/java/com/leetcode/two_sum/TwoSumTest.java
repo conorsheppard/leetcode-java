@@ -2,11 +2,8 @@ package com.leetcode.two_sum;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static com.leetcode.two_sum.TwoSum.twoSum;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TwoSumTest {
 

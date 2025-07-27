@@ -19,12 +19,16 @@ public class TopKFrequentElements {
         return res;
     }
 
-    // private indicates intent of use, this is just a utility Record to be used solely in this class
+    /**
+     * private indicates intent of use, this is just a utility Record to be used solely in this class
+     */
     private record Node(Integer num, Integer freq) { // implements Comparable<Node> {
-//        @Override
-//        public int compareTo(Node node) {
-//            return Integer.compare(node.freq(), freq);
-//        }
+        /*
+        @Override
+        public int compareTo(Node node) {
+            return Integer.compare(node.freq(), freq);
+        }
+        */
     }
 
     static int[] topKFreq(int[] nums, int k) {
