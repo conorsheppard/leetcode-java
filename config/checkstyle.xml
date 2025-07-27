@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<module name="Checker">
+    <module name="SuppressionFilter">
+        <property name="file" value="config/checkstyle-suppressions.xml"/>
+    </module>
+    <module name="TreeWalker">
+        <module name="UnusedImports"/>
+        <module name="LeftCurly">
+            <property name="option" value="eol"/>
+            <property name="ignoreEnums" value="false"/>
+        </module>
+    </module>
+    <module name="RegexpSingleline">
+        <property name="format" value="\s+$"/>
+        <property name="minimum" value="0"/>
+        <property name="maximum" value="0"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
+    <module name="RegexpSingleline">
+        <property name="format" value="^//.*;"/>
+        <property name="message" value="Commented-out code detected"/>
+        <property name="ignoreCase" value="false"/>
+        <property name="severity" value="warning"/>
+    </module>
+</module>
