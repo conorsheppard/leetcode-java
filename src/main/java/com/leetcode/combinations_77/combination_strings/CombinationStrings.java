@@ -1,4 +1,4 @@
-package com.leetcode.combinations_77.string_version;
+package com.leetcode.combinations_77.combination_strings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,20 +8,19 @@ public class CombinationStrings {
     public List<String> combine(int n, int k) {
         if (n == 1) return List.of(getStrRep(IntStream.rangeClosed(1, k).boxed().toList()));
         var res = new ArrayList<String>();
-        for (int i = 1; i <= n; i++) combineDfs(n, k, res, new ArrayList<>(), i, 1);
+        for (int i = 1; i <= n; i++) combineDfs(n, k, res, new ArrayList<>(), i);
         return res;
     }
 
-    private void combineDfs(int maxBranches, int maxDepth, List<String> combinations, List<Integer> curComb, int curVal,
-                            int curDepth) {
+    private void combineDfs(int maxBranches, int maxDepth, List<String> combinations, List<Integer> curComb, int curVal) {
         curComb.add(curVal);
-        if (curDepth == maxDepth) {
+        if (curComb.size() == maxDepth) {
             combinations.add(getStrRep(curComb));
             return;
         }
 
         while (curVal < maxBranches) {
-            combineDfs(maxBranches, maxDepth, combinations, new ArrayList<>(curComb), curVal + 1, curDepth + 1);
+            combineDfs(maxBranches, maxDepth, combinations, new ArrayList<>(curComb), curVal + 1);
             curVal++;
         }
     }

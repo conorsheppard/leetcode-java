@@ -1,4 +1,4 @@
-package com.leetcode.combinations_77.string_version;
+package com.leetcode.combinations_77.combination_strings;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
